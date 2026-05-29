@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Love Website 💖</title>
+  <style>
+    body{
+      background:linear-gradient(135deg,#ffd6e7,#ffeef7,#e0f7ff);
+      min-height:100vh;
+      overflow-x:hidden;
+      text-align:center;
+      font-family:sans-serif;
+    }
+    .page{
+      width:100%;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      padding:20px;
+    }
+    .main-img{
+      width:240px;
+      border-radius:25px;
+      box-shadow:0 10px 25px rgba(0,0,0,0.15);
+      animation:float 3s ease-in-out infinite;
+      margin-bottom:20px;
+    }
+    @keyframes float{
+      0%{transform:translateY(0);}
+      50%{transform:translateY(-10px);}
+      100%{transform:translateY(0);}
+    }
+    .btns{
+      display:flex;
+      gap:20px;
+    }
+    button{
+      border:none;
+      padding:14px 35px;
+      border-radius:40px;
+      font-size:20px;
+      cursor:pointer;
+      transition:0.3s;
+      font-weight:bold;
+    }
+    #yesBtn{
+      background:#ff4f8b;
+      color:white;
+    }
+    #noBtn{
+      background:white;
+      color:#ff4f8b;
+    }
+    #page2{
+      display:none;
+    }
+    .gift-title{
+      font-size:30px;
+      color:#ff4f8b;
+      margin-bottom:10px;
+    }
+    .gifts{
+      display:flex;
+      flex-wrap:wrap;
+      gap:30px;
+      justify-content:center;
+    }
+    .gift{
+      width:180px;
+      background:white;
+      border-radius:25px;
+      padding:25px;
+      cursor:pointer;
+      transition:0.3s;
+      box-shadow:0 8px 20px rgba(0,0,0,0.1);
+    }
+    .gift:hover{
+      transform:translateY(-8px) scale(1.05);
+    }
+    .gift span{
+      font-size:85px;
+    }
+    .gift h2{
+      margin-top:10px;
+      color:#ff4f8b;
+    }
+    /* Click Me ထုတ်ချက် */
+    #heartShowBtn{
+      margin-top:35px;
+      background:#ff4f8b;
+      color:#fff;
+      font-size:22px;
+      border:none;
+      border-radius:50px;
+      padding:10px 35px;
+      box-shadow:0 4px 20px rgba(255,79,139,0.13);
+      cursor:pointer;
+      transition:0.2s;
+      font-weight:bold;
+      display: inline-block;
+    }
+    #heartShowBtn:hover{
+      background:#d8006e;
+      color:white;
+    }
+
+    /* -- Heart Modal (NEW) -- */
+    #heartModal{
+      display:none;
+      position:fixed;
+      top:0; left:0; width:100vw; height:100vh;
+      background:rgba(255,202,225,0.74);
+      z-index:999;
+      justify-content:center;
+      align-items:center;
+      flex-direction:column;
+      animation:fadeIn 0.22s;
+    }
+    @keyframes fadeIn{
+      from{opacity:0;}
+      to{opacity:1;}
+    }
+    .modal-center-heart{
+      position:relative;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      /* width,height for responsive */ 
+      width:430px; height:375px;
+    }
+    @media (max-width:600px){
+      .modal-center-heart{ width:98vw; height:48vw;}
+    }
+    .modal-close{
+      position:absolute;
+      top:12px; right:30px;
+      font-size:40px;
+      color:#ff4f8b;
+      background:none;
+      border:none;
+      cursor:pointer;
+      z-index:10;
+      font-weight: bold;
+      transition:.18s;
+    }
+    .modal-close:hover{color:#db295d;}
+    /* White Heart SVG */
+    .pure-heart-svg {
+      width:390px;height:335px;
+      display:block;
+      margin:auto;
+      filter:drop-shadow(0 4px 30px #ffb0db44);
+    }
+    @media (max-width:600px){
+      .pure-heart-svg { width:84vw;height:30vw; }
+    }
+    /* Heart Overlay text */
+    .inheart-text{
+      position:absolute;
+      left:50%; top:49%;
+      transform:translate(-50%,-50%);
+      font-size:24px;
+      color:#ef3a90;
+      font-weight:300;
+      text-align:center;
+      width:50%;
+      z-index:2;
+      line-height:1.28;
+      text-shadow:0 2px 15px #fcf4f8;
+      font-family:'Noto Sans Myanmar',Myanmar3,sans-serif;
+    }
+    .inheart-emoji{
+      position:absolute;
+      left:50%;
+      top:66%;
+      transform:translate(-50%,0);
+      font-size:35px;
+      z-index:2;
+    }
+
+    /* Optional: အောက်ခြေစာ */
+    .modal-under{
+      margin-top:30px;
+      font-size:20px;
+      color:#ad2d66;
+      font-weight:500;
+      text-shadow:0 1px 7px #ffe6f3;
+      display:flex;align-items:center;gap:6px;
+      justify-content:center;
+    }
+  </style>
+</head>
+<body>
+<!-- MUSIC -->
+
+<audio id="bgm" autoplay loop muted>
+  <!-- ကိုယ့်သီချင်း link ထည့် -->
+  <source src="mine.mp3" type="audio/mp3">
+</audio>
+
+<script>
+// chrome autoplay, ios fix!
+window.addEventListener("click", () => {
+  const music = document.getElementById("bgm");
+  music.muted = false;
+  music.play();
+}, { once: true });
+</script>
+
+<!-- First Page -->
+<div class="page" id="page1">
+  <h1>I Love You💖</h1>
+  <img class="main-img" src="cat1.jpg" alt="Valentine Gif"/>
+  <p>၀မ်းနည်းနေတာလား🥺</p>
+  <div class="btns">
+    <button id="yesBtn">မနည်းဘူး</button>
+    <button id="noBtn">နည်းတယ်</button>
+  </div>
+</div>
+
+<!-- Second Page -->
+<div class="page" id="page2">
+  <h1 class="gift-title">၀မ်းနည်းပြေအောင် အောက်က 3ခုထဲက တစ်ခုရွေးပေးနော် 💕</h1>
+  <div class="gifts">
+    <div class="gift" onclick="showGift(1)">
+      <span>🎁</span>
+      <h2>Box 1</h2>
+    </div>
+    <div class="gift" onclick="showGift(2)">
+      <span>🎁</span>
+      <h2>Box 2</h2>
+    </div>
+    <div class="gift" onclick="showGift(3)">
+      <span>🎁</span>
+      <h2>Box 3</h2>
+    </div>
+  </div>
+  <div id="messageBox">
+    <h3 id="giftTitle"></h3>
+    <div id="messageText"></div>
+  </div>
+  <!-- Heart Show Button (Only Second Page) -->
+  <button id="heartShowBtn">❤️ Click me</button>
+</div>
+
+<!-- Heart Pop up Modal (Pure White Heart!) -->
+<div id="heartModal">
+  <div class="modal-center-heart">
+    <!-- Close button -->
+    <button class="modal-close" id="closeHeart" title="ပိတ်ရန်">&times;</button>
+    <!-- White Heart SVG (fill white, border pink) -->
+    <svg class="pure-heart-svg" viewBox="0 0 320 275" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M160 254 Q14 164 54 85 Q100 11 160 60 Q220 11 266 85 Q306 164 160 254 Z"
+        fill="#fff"
+        stroke="#ff4f8b"
+        stroke-width="7"
+      />
+    </svg>
+    <!-- Heart text & emoji -->
+    <div class="inheart-text">
+     ကို့အမှားတွေအတွက် တောင်းပန်ပါတယ် အရင်လိုနွေးနွေးထွေးထွေးပြန်နေကြရအောင်နော်💜
+    </div>
+  </div>
+</div>
+
+<script>
+/* yes no */
+let yesBtn=document.getElementById("yesBtn");
+let noBtn=document.getElementById("noBtn");
+let size=20;
+noBtn.onclick=function(){
+  size += 8;
+  yesBtn.style.fontSize=size+"px";
+}
+yesBtn.onclick=function(){
+  document.getElementById("page1").style.display="none";
+  document.getElementById("page2").style.display="flex";
+}
+
+/* gift messages */
+function showGift(num){
+  let box=document.getElementById("messageBox");
+  let title=document.getElementById("giftTitle");
+  let text=document.getElementById("messageText");
+  box.style.display="block";
+  setTimeout(()=>{
+    box.classList.add("show");
+  },50);
+  if(num==1){
+    text.innerHTML="ကလေးလေးစိတ်ကြိုက် မုန့်တွေအကုန်၀ယ်ကျွေးမယ် 🍟";
+  }
+  if(num==2){
+    text.innerHTML="ကိုကိုနဲ့ တူတူ movie date မယ်💖";
+  }
+  if(num==3){
+    text.innerHTML="အိမ်ပြောင်းသွားရင်လည်းတစ်လတစ်ခါအမြဲတမ်းလာတွေ့မယ်💕";
+  }
+}
+
+/* bubbles */
+function createBubble(){
+  let bubble=document.createElement("div");
+  bubble.classList.add("bubble");
+  let size=Math.random()*60+20;
+  bubble.style.width=size+"px";
+  bubble.style.height=size+"px";
+  bubble.style.left=Math.random()*100+"vw";
+  bubble.style.animationDuration=(Math.random()*5+5)+"s";
+  document.body.appendChild(bubble);
+  setTimeout(()=>{
+    bubble.remove();
+  },10000);
+}
+setInterval(createBubble,500);
+
+/* Heart Popup - Only in Page 2 */
+const heartShowBtn = document.getElementById('heartShowBtn');
+const heartModal = document.getElementById('heartModal');
+const closeHeart = document.getElementById('closeHeart');
+
+heartModal.style.display = 'none';
+
+heartShowBtn.onclick = function(){
+  heartModal.style.display = 'flex';
+};
+closeHeart.onclick = function(e){
+  heartModal.style.display = 'none';
+};
+heartModal.onclick = function(e){
+  if(e.target === heartModal) heartModal.style.display = 'none';
+};
+</script>
+</body>
+</html>
